@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	// Таймер
 
-	let deadline = '2019-05-01';
+	let deadline = '2019-07-01';
 
 	function getTimeRemaining(endtime) {
 		let t = Date.parse(endtime) - Date.parse(new Date()),
@@ -93,58 +93,29 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	// Скролл
 
-	let aboutLink = document.querySelector('[href="#about"]'),
-			photoLink = document.querySelector('[href="#photo"]'),
-			priceLink = document.querySelector('[href="#price"]'),
-			contactsLink = document.querySelector('[href="#contacts"]'),
-			aboutBox = document.querySelector('#about'),
-			photoBox = document.querySelector('#photo'),
-			priceBox = document.querySelector('#price'),
-			contactsBox = document.querySelector('#contacts');
+	let menu = document.querySelector('ul');
 
+	console.log(menu);
 
-	aboutLink.addEventListener('click', function(event) {
+	menu.addEventListener('click', function(event) { 
 		event.preventDefault();
-		scrolling(aboutBox);
+		if (event.target && event.target.tagName == 'A') {
+			document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
+		}
 	});
-
-	photoLink.addEventListener('click', function(event) {
-		event.preventDefault();
-		scrolling(photoBox);
-	});
-
-	priceLink.addEventListener('click', function(event) {
-		event.preventDefault();
-		scrolling(priceBox);
-	});
-
-	contactsLink.addEventListener('click', function(event) {
-		event.preventDefault();
-		scrolling(contactsBox);
-	});
-
-	function scrolling (content) {
-		let w,
-		t = content.offsetTop,
-		timerId = setInterval(function() {
-			w = window.pageYOffset;
-			if(w == t) {
-				clearInterval(timerId);
-			}
-			if(w < t) {
-				scrollBy(0, 1);
-			} else {
-				scrollBy(0, -1);
-			}
-		}, 1);
-	}
 
 	// Модальное окно
 
 	let more = document.querySelector('.more'),
-			tabsMore = document.querySelectorAll('.description-btn'),
+			infoBlock = document.querySelector('.info'),
 			overlay = document.querySelector('.overlay'),
 			close = document.querySelector('.popup-close');
+			
+	function showModal() {
+		overlay.style.display = 'block';
+		event.target.classList.add('more-splash');
+		document.body.style.overflow = 'hidden';
+	}
 
 	more.addEventListener('click', showModal);
 
@@ -154,14 +125,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		document.body.style.overflow = '';
 	});
 
-	tabsMore.forEach(function(item) {
-		item.addEventListener('click', showModal);
+	infoBlock.addEventListener('click', function(event) {
+		console.log(event.target);
+		if (event.target && event.target.classList.contains('description-btn')) {
+			showModal();
+		}
 	});
-
-	function showModal() {
-		overlay.style.display = 'block';
-		this.classList.add('more-splash');
-		document.body.style.overflow = 'hidden';
-	}
 
 });
