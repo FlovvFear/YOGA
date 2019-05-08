@@ -115,15 +115,15 @@ window.addEventListener('DOMContentLoaded', function() {
 		overlay.style.display = 'block';
 		event.target.classList.add('more-splash');
 		document.body.style.overflow = 'hidden';
+
+		close.addEventListener('click', function() {
+			overlay.style.display = 'none';
+			event.classList.remove('more-splash');
+			document.body.style.overflow = '';
+		});
 	}
 
 	more.addEventListener('click', showModal);
-
-	close.addEventListener('click', function() {
-		overlay.style.display = 'none';
-		more.classList.remove('more-splash');
-		document.body.style.overflow = '';
-	});
 
 	infoBlock.addEventListener('click', function(event) {
 		console.log(event.target);
