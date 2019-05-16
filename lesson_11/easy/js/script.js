@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		tabBlock = document.querySelector('.info-header'),
 		tabContent = document.querySelectorAll('.info-tabcontent');
 
-	function hideTabContent(a) {
+	const hideTabContent = (a) => {
 		for (let i = a; i < tabContent.length; i++) {
 			tabContent[i].classList.remove('show');
 			tabContent[i].classList.add('hide');
@@ -15,14 +15,14 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	hideTabContent(1);
 
-	function showTabContent(b) {
+	const showTabContent = (b) => {
 		if (tabContent[b].classList.contains('hide')) {
 			tabContent[b].classList.remove('hide');
 			tabContent[b].classList.add('show');
 		}
 	}
 
-	tabBlock.addEventListener('click', function(event) {
+	tabBlock.addEventListener('click', event => {
 		let target = event.target;
 		if (target && target.classList.contains('info-header-tab')) {
 			for (let i = 0; i < tab.length; i++) {
@@ -39,20 +39,16 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	let deadline = '2019-07-01';
 
-	function getTimeRemaining(endtime) {
+	const getTimeRemaining = (endtime) => {
 		let t = Date.parse(endtime) - Date.parse(new Date()),
 				seconds = Math.floor((t / 1000) % 60),
 				minutes = Math.floor((t / 1000 / 60) % 60),
 				hours = Math.floor((t / (1000 * 60 * 60)));
-				if (seconds < 10) {
-					seconds = "0" + seconds;
-				}
-				if (minutes < 10) {
-					minutes = "0" + minutes;
-				}
-				if (hours < 10) {
-					hours = "0" + hours;
-				}
+
+				if (seconds < 10) seconds = "0" + seconds;
+				if (minutes < 10) minutes = "0" + minutes;
+				if (hours < 10) hours = "0" + hours;
+
 				return {
 					'total' : t,
 					'seconds' : seconds,
@@ -61,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				};
 	}
 
-	function setClock(id, endtime) {
+	const setClock = (id, endtime) => {
 		
 
 		let timer = document.getElementById(id),
@@ -95,8 +91,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	let menu = document.querySelector('ul');
 
-
-	menu.addEventListener('click', function(event) { 
+	menu.addEventListener('click', event => { 
 		event.preventDefault();
 		if (event.target && event.target.tagName == 'A') {
 			document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
@@ -139,15 +134,15 @@ window.addEventListener('DOMContentLoaded', function() {
 			callbackInput = callbackForm.getElementsByTagName('input'),
 			statusMessage = document.createElement('div');
 
-	input.forEach(function(item) { 
-		item.addEventListener('input', function() {
+	input.forEach(item => { 
+		item.addEventListener('input', () => {
 			item.value = item.value.replace(/[^0-9+]/, '');
 			if (item.value.length > 10) {	
 			}
 		});
 	});
 
-	callbackInput[1].addEventListener('input', function() {
+	callbackInput[1].addEventListener('input', () => {
 		callbackInput[1].value = callbackInput[1].value.replace(/[^0-9+]/, '');
 		if (callbackInput[1].value.length > 10) {	
 		}
@@ -156,7 +151,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	statusMessage.classList.add('status');
 
-	form.addEventListener('submit', function(event) {
+	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		form.appendChild(statusMessage);
 
@@ -167,14 +162,14 @@ window.addEventListener('DOMContentLoaded', function() {
 		let formData = new FormData(form);
 		
 		let obj = {};
-		formData.forEach(function(value, key) {
+		formData.forEach((value, key) => {
 			obj[key] = value;
 		});
 		let json = JSON.stringify(obj);
 
 		request.send(json);
 
-		request.addEventListener('readystatechange', function() {
+		request.addEventListener('readystatechange', () => {
 			if (request.readyState < 4) {
 				statusMessage.innerHTML = message.loading;
 			} else if(request.readyState === 4 && request.status == 200) {
@@ -190,7 +185,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	});
 
 
-	callbackForm.addEventListener('submit', function(event) {
+	callbackForm.addEventListener('submit', (event) => {
 		event.preventDefault();
 		callbackForm.appendChild(statusMessage);
 
@@ -208,7 +203,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 		request.send(json);
 
-		request.addEventListener('readystatechange', function() {
+		request.addEventListener('readystatechange', () => {
 			if (request.readyState < 4) {
 				statusMessage.innerHTML = message.loading;
 			} else if(request.readyState === 4 && request.status == 200) {
