@@ -121,6 +121,11 @@ window.addEventListener('DOMContentLoaded', function() {
 	});
 
 	// Отправка формы
+	
+	document.body.addEventListener('input', (event) => {
+		let target = event.target;
+		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
+	});
 
 	let message = {
 		loading: "Загрузка...",
@@ -129,37 +134,18 @@ window.addEventListener('DOMContentLoaded', function() {
 	};
 
 	let form = document.querySelector('.main-form'),
-			input = form.querySelectorAll('input'),
-			callbackForm = document.querySelector('#form'),
-			callbackInput = callbackForm.getElementsByTagName('input'),
 			statusMessage = document.createElement('div');
-
-	input.forEach(item => { 
-		item.addEventListener('input', () => {
-			item.value = item.value.replace(/[^0-9+]/, '');
-			if (item.value.length > 10) {	
-			}
-		});
-	});
-
-	callbackInput[1].addEventListener('input', () => {
-		callbackInput[1].value = callbackInput[1].value.replace(/[^0-9+]/, '');
-		if (callbackInput[1].value.length > 10) {	
-		}
-	});
-
 
 	statusMessage.classList.add('status');
 
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		form.appendChild(statusMessage);
-
+	let formSend = (formName) => {
+		formName.appendChild(statusMessage);
+		let input = formName.querySelectorAll('input');
 		let request = new XMLHttpRequest();
 		request.open('POST', 'server.php');
 		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-		let formData = new FormData(form);
+		let formData = new FormData(formName);
 		
 		let obj = {};
 		formData.forEach((value, key) => {
@@ -182,40 +168,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		for (let i = 0; i < input.length; i++) {
 			input[i].value = '';
 		}
-	});
+	};
 
-
-	callbackForm.addEventListener('submit', (event) => {
+	document.body.addEventListener('submit', (event) => {
 		event.preventDefault();
-		callbackForm.appendChild(statusMessage);
-
-		let request = new XMLHttpRequest();
-		request.open('POST', 'server.php');
-		request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-		let formData = new FormData(callbackForm);
-		
-		let obj = {};
-		formData.forEach(function(value, key) {
-			obj[key] = value;
-		});
-		let json = JSON.stringify(obj);
-
-		request.send(json);
-
-		request.addEventListener('readystatechange', () => {
-			if (request.readyState < 4) {
-				statusMessage.innerHTML = message.loading;
-			} else if(request.readyState === 4 && request.status == 200) {
-				statusMessage.innerHTML = message.success;
-			} else {
-				statusMessage.innerHTML = message.failure;
-			}
-		});
-
-		for (let i = 0; i < callbackInput.length; i++) {
-			callbackInput[i].value = '';
-		}
+		if(event.target.classList.contains('popup-form__btn')) formSend(form);
 	});
 
 });
