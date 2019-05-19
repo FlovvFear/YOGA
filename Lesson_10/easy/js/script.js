@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', () => {
 	'use strict';
 	const log = (msg) => {console.log(msg);};
 	// Табы
@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			tabContent[b].classList.remove('hide');
 			tabContent[b].classList.add('show');
 		}
-	}
+	};
 
 	tabBlock.addEventListener('click', event => {
 		let target = event.target;
