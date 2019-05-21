@@ -10,15 +10,7 @@ $(document).ready(function() {
     $('.overlay').fadeOut('slow');
   });
 
-  $('.main_btna').on('click', () => {
-    showModal();
-  });
-
-  $('.main_btn').on('click', () => {
-    showModal();
-  });
-
-  $('nav > ul > li:eq(1)').on('click', () => {
+  $('.main_btna, .main_btn, [href = "#sheldure"]').on('click', () => {
     showModal();
   });
 });
