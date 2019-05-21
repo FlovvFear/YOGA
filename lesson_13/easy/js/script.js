@@ -93,7 +93,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// Скролл
 
-	let menu = document.querySelector('ul');
+	let menu = document.querySelector('ul'),
+			isActiveBtn;
 
 
 	menu.addEventListener('click', event => { 

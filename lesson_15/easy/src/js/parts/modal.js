@@ -1,5 +1,6 @@
-function modal() {
-  let overlay = document.querySelector('.overlay');
+const modal = () => {
+  let overlay = document.querySelector('.overlay'),
+  isActiveBtn;
 
   const bindModal = (overlayStatus, overflowStatus, classListMethod, el) => {
     if(classListMethod == 'add') isActiveBtn = el;

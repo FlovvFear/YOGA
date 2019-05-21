@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function calc() {
+const calc = () => {
   let persons = document.querySelectorAll('.counter-block-input')[0],
 			restDays = document.querySelectorAll('.counter-block-input')[1],
 			place = document.getElementById('select'),
@@ -155,7 +155,7 @@ module.exports = calc;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function form() {
+const form = () => {
   document.body.addEventListener('input', (event) => {
 		let target = event.target;
 		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
@@ -171,18 +171,18 @@ function form() {
 
 	statusMessage.classList.add('status');
 
-	let formSend = (formName) => {
+	const formSend = (formName) => {
 		formName.appendChild(statusMessage);
 		let input = formName.querySelectorAll('input');
 		let formData = new FormData(formName);
 
-		function postData(data) {
-			return new Promise(function(resolve, reject) {
+		 const postData = (data) => {
+			return new Promise((resolve, reject) => {
 				let request = new XMLHttpRequest();
 				request.open('POST', 'server.php');
 				request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-				request.onreadystatechange = function () {
+				request.onreadystatechange = () => {
 					if (request.readyState < 4) {
 						resolve();
 					} else if(request.readyState === 4) {
@@ -206,7 +206,7 @@ function form() {
 
 		
 
-		function clearInput() {
+		const clearInput = () => {
 			for (let i = 0; i < input.length; i++) {
 				input[i].value = '';
 			}
@@ -236,8 +236,9 @@ module.exports = form;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function modal() {
-  let overlay = document.querySelector('.overlay');
+const modal = () => {
+  let overlay = document.querySelector('.overlay'),
+  isActiveBtn;
 
   const bindModal = (overlayStatus, overflowStatus, classListMethod, el) => {
     if(classListMethod == 'add') isActiveBtn = el;
@@ -267,11 +268,11 @@ module.exports = modal;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function scroll() {
+const scroll = () => {
   let menu = document.querySelector('ul');
 
 
-	menu.addEventListener('click', event => { 
+	menu.addEventListener('click', (event) => { 
 		event.preventDefault();
 		if (event.target && event.target.tagName == 'A') {
 			document.querySelector(event.target.getAttribute('href')).scrollIntoView({block: "start", behavior: "smooth"});
@@ -290,7 +291,7 @@ module.exports = scroll;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function slider() {
+const slider = () => {
   let slideIndex = 1,
 			slides = document.querySelectorAll('.slider-item'),
 			prev = document.querySelector('.prev'),
@@ -298,9 +299,7 @@ function slider() {
 			dotsWrap = document.querySelector('.slider-dots'),
 			dots = document.querySelectorAll('.dot');
 
-	showSlides();
-
-	function showSlides(n) {
+	const showSlides = (n) => {
 
 		if (n > slides.length) {
 			slideIndex = 1;
@@ -316,10 +315,10 @@ function slider() {
 		dots[slideIndex - 1].classList.add('dot-active');
 	}
 
-	function plusSlides(n) {
+	const plusSlides = (n) => {
 		showSlides(slideIndex += n);
 	}
-	function currentSlide(n) {
+	const currentSlide = (n) => {
 		showSlides(slideIndex = n);
 	}
 
@@ -340,6 +339,9 @@ function slider() {
 			}
 		}
 	});
+
+	showSlides();
+
 }
 
 module.exports = slider;
@@ -353,7 +355,7 @@ module.exports = slider;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function tabs() {
+const tabs = () => {
   let tab = document.querySelectorAll('.info-header-tab'),
 		tabBlock = document.querySelector('.info-header'),
 		tabContent = document.querySelectorAll('.info-tabcontent');
@@ -399,7 +401,7 @@ module.exports = tabs;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function timer() {
+const timer = () => {
   let deadline = '2019-07-01';
 
 	const getTimeRemaining = (endtime) => {

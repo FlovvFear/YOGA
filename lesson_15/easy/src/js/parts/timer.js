@@ -1,4 +1,4 @@
-function timer() {
+const timer = () => {
   let deadline = '2019-07-01';
 
 	const getTimeRemaining = (endtime) => {

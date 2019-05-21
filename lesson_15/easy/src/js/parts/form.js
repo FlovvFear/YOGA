@@ -1,4 +1,4 @@
-function form() {
+const form = () => {
   document.body.addEventListener('input', (event) => {
 		let target = event.target;
 		if (target.getAttribute('type') === 'tel') target.value = target.value.replace(/[^0-9+]/, '');
@@ -14,18 +14,18 @@ function form() {
 
 	statusMessage.classList.add('status');
 
-	let formSend = (formName) => {
+	const formSend = (formName) => {
 		formName.appendChild(statusMessage);
 		let input = formName.querySelectorAll('input');
 		let formData = new FormData(formName);
 
-		function postData(data) {
-			return new Promise(function(resolve, reject) {
+		 const postData = (data) => {
+			return new Promise((resolve, reject) => {
 				let request = new XMLHttpRequest();
 				request.open('POST', 'server.php');
 				request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-				request.onreadystatechange = function () {
+				request.onreadystatechange = () => {
 					if (request.readyState < 4) {
 						resolve();
 					} else if(request.readyState === 4) {
@@ -49,7 +49,7 @@ function form() {
 
 		
 
-		function clearInput() {
+		const clearInput = () => {
 			for (let i = 0; i < input.length; i++) {
 				input[i].value = '';
 			}

@@ -105,7 +105,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// Модальное окно
 
-	let overlay = document.querySelector('.overlay');
+	let overlay = document.querySelector('.overlay'),
+			isActiveBtn;
 
 			
 			const bindModal = (overlayStatus, overflowStatus, classListMethod, el) => {
